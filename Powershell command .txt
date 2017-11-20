@@ -1,0 +1,50 @@
+get-childitem -r -filter nuget.exe C:\
+
+
+get-childitem -r -filter *.nuspec | % {
+    $content = Get-Content $_.FullName
+
+    #filter and save content to the original file
+    $content | Where-Object {$_ -match 'step[49]'} | Set-Content $_.FullName
+	"content: $content"
+	
+    #filter and save content to a new file 
+    $content | Where-Object {$_ -match 'step[49]'} | Set-Content ($_.BaseName + '_out.log')
+	
+	"content: $content"
+}
+ Write-Host $_.FullName;
+	 Write-Host $_.FullName'\bin\Release';
+
+	 bb $_.FullName	 
+	 
+	 
+get-childitem -r -filter *.nuspec | % {		 
+	 Write-Host (Join-Path(Split-Path $_.FullName) "bin\Release")
+}
+
+get-childitem -r -filter *.nuspec | Where-object {!$_.psIsContainer -eq $false} | ForEach-Object Write-Host {$_.FullName}
+
+
+get-childitem -r -filter *.nuspec | % {
+    Write-Host $_.fullname (Join-Path(Split-Path $_.FullName) "bin\Release")
+}
+
+version 'Swmon.Common.Configuration\Properties\AssemblyInfo.cs'
+
+
+PM> Get-project -All | Where-Object { $_.name -like "*Test*"}
+PM> Get-project -All | Where-Object { $_.name -notlike "*Test*"}
+PM> Get-project -All | Where-Object { $_.name -eq "Swmon.Service.Test"}
+PM> Get-project -All
+PM> Get-project -All | Get-Package   
+PM> Get-project -All |install-package 'Swmon.Common.DTO'
+
+https://technet.microsoft.com/en-us/library/ee177028.aspx
+
+install pre release version of latest nuget
+Get-project -All | install-package Swmon.Common.Dto -Prerelease
+
+
+PM> Get-project -All | Where-Object{ $_.name -notlike '*Test*'} |  uninstall-package Swmon.Common.Logging
+
